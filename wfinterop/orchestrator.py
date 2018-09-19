@@ -10,6 +10,7 @@ import logging
 import sys
 import time
 import os
+import json
 import datetime as dt
 
 from IPython.display import display, clear_output
@@ -52,14 +53,30 @@ def run_job(queue_id,
     request = {'workflow_url': wf_config['workflow_url'],
                'workflow_params': wf_jsonyaml,
                'attachment': wf_attachments}
+    
+    logger.info("a")
+
     run_log = wes_instance.run_workflow(request)
+    logger.info("run_log is: " + str(run_log))
+
+    logger.info("c")
+
     run_log['start_time'] = dt.datetime.now().ctime()
+    
+    logger.info("d")
+
     run_status = wes_instance.get_run_status(run_log['run_id'])['state']
     run_log['status'] = run_status
+
+    logger.info("e")
+
 
     if not submission:
         update_submission(queue_id, submission_id, 'run_log', run_log)
         update_submission(queue_id, submission_id, 'status', 'SUBMITTED')
+
+    logger.info("z")
+
     return run_log
 
 

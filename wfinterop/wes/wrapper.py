@@ -38,7 +38,9 @@ class WES(object):
         Create a new workflow run and retrieve its tracking ID
         to monitor its progress.
         """
+        logger.info("bb")
         res = self.api_client.RunWorkflow(request)
+        logger.info("bbb")
         return response_handler(res)
 
     def cancel_run(self, id):

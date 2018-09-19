@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 from bravado.requests_client import RequestsClient
 from bravado.swagger_model import Loader
@@ -72,17 +73,23 @@ class WESAdapter(WESInterface):
         return self._wes_client.list_runs()
 
     def RunWorkflow(self, request):
-        return self._wes_client.run(wf=request['workflow_url'],
+        logger.info("b")
+        retval =  self._wes_client.run(wf=request['workflow_url'],
                                     jsonyaml=request['workflow_params'],
                                     attachments=request['attachment'])
+        logger.info("bx")
+
+        return retval
 
     def CancelRun(self, run_id):
         return self._wes_client.cancel(run_id=run_id)
 
     def GetRunStatus(self, run_id):
+        logger.info("ddd")
         return self._wes_client.get_run_status(run_id=run_id)
 
     def GetRunLog(self, run_id):
+        logger.info("eee")
         return self._wes_client.get_run_log(run_id=run_id)
 
 

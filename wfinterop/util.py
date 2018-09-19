@@ -41,8 +41,11 @@ def save_json(filepath, app_config):
 
 def response_handler(response):
     try:
+        logger.info("response_handler")
+        logger.info("response_handler: " + str(response))
         return response.response().result
     except:
+        logger.info("response_handler. exception")
         return response
 
 
